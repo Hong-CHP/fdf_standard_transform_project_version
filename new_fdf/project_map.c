@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:38:41 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/10 19:50:43 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/10 20:05:28 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_point **scale_to_canonical_cube(t_data *data, t_vue *view)
 void    iso_calculs(t_point *point, double rad)
 {
     point->res_x = (point->x - point->y) * cos(rad) * 0.5;
-    point->res_y = ((point->x + point->y) * sin(rad) - point->z) * 0.5;
+    point->res_y = ((point->x + point->y) * sin(rad) - point->z * 0.2) * 0.5;
 }
 
 t_point    **iso_project(t_data *data)
