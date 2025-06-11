@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:33:42 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/10 16:17:25 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:02:32 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ void	fill_map(t_point **map, char **line_split, int y, int width)
 		map[y][i].x = i;
 		map[y][i].y = y;
 		map[y][i].color = -1;
-		if (pre_colored(line_split[i]))
-			if_color(&map[y][i], line_split[i]);
 		if (!line_split[i])
 			map[y][i].z = 0;
 		else
 			map[y][i].z = (double)ft_atoi(line_split[i]);
+		if (line_split[i] && pre_colored(line_split[i]))
+			if_color(&map[y][i], line_split[i]);
 		map[y][i].org_z = map[y][i].z;
-		// printf("map origin: %f, %f, %f, %d\n", map[y][i].x, map[y][i].y, map[y][i].z, map[y][i].color);
+		printf("map origin: %f, %f, %f, %d\n", map[y][i].x, map[y][i].y, map[y][i].z, map[y][i].color);
 		i++;
 	}
 }

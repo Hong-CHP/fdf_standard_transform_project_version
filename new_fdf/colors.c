@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:56:40 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/10 17:14:28 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/11 12:13:27 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,12 @@ int     get_color(t_point *point, t_vue *view)
 	double	percent;
 	double	threshold;
 	
-	printf("org_z and scal_z are %f %f\n", point->org_z, point->z);
 	if (point->color != -1)
         return (point->color);
 	threshold = view->z_max - view->z_min;
 	if (threshold == 0)
 		return (0x432371);
 	percent = (point->org_z - view->z_min) / threshold;
-	printf("percent is %f\n", percent);
     if (percent <= 0.2)
         return (0x0000FF);
     else if (percent <= 0.4)
