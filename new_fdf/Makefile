@@ -6,7 +6,7 @@
 #    By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/28 14:53:49 by hporta-c          #+#    #+#              #
-#    Updated: 2025/06/10 13:44:21 by hporta-c         ###   ########.fr        #
+#    Updated: 2025/06/19 12:44:00 by hporta-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INCLUDES = -I.
 
 SRCS = get_next_line.c get_next_line_utils.c ft_split.c main.c \
 		fill_map.c project_map.c draw.c event_litsener.c \
-		colors.c utils.c utils_others.c mlx_utils.c
+		colors.c utils.c utils_others.c mlx_utils.c clean_up.c
 OBJS = $(SRCS:.c=.o)
 
 RM = rm -f

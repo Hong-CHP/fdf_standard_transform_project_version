@@ -6,26 +6,12 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:33:42 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/11 12:02:32 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/19 12:32:40 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "fdf.h"
-
-void    free_split(char **str_split)
-{
-    int i;
-    
-    i = 0;
-    while(str_split[i])
-    {
-        free(str_split[i]);
-        i++;
-    }
-    free(str_split);
-    str_split = NULL;
-}
 
 int	count_lines(char *file)
 {
@@ -66,7 +52,10 @@ void	fill_map(t_point **map, char **line_split, int y, int width)
 	
     map[y] = malloc(sizeof(t_point) * width);
 	if (!map[y])
+	{
+		free_map(map, y);
 		return ;
+	}
 	i = 0;
 	while (i < width)
 	{
@@ -85,9 +74,34 @@ void	fill_map(t_point **map, char **line_split, int y, int width)
 	}
 }
 
+char	**split_line(char *line, t_point **map, int y)
+{
+	char	**line_split;
+
+	line_split = ft_split(line);
+	if (!line_split)
+	{
+		free(line);
+		free_map(map, y);
+		return (NULL);
+	}
+	return (line_split);
+}
+
+int	expected_data_width(int *expected_w, t_data *data, char **line_split)
+{
+	data->width = count_cols(line_split);
+	if (*expected_w == -1)
+		*expected_w = data->width;
+	else if (data->width != *expected_w)
+		data->width = *expected_w;
+	return (data->width);
+}
+
+//allocated map
 t_point	**recup_points_data(int fd, t_data *data)
 {
-	int	y;
+	int		y;
 	t_point **map;
 	char	*line;
 	char	**line_split;
@@ -101,17 +115,15 @@ t_point	**recup_points_data(int fd, t_data *data)
 	line = get_next_line(fd);
 	while (line && y < data->height)
 	{
-		line_split = ft_split(line);
-        data->width = count_cols(line_split);
-		if (expected_w == -1)
-			expected_w = data->width;
-		else if (data->width != expected_w)
-			data->width = expected_w;
+		line_split = split_line(line, map, y);
+		data->width = expected_data_width(&expected_w, data, line_split);
 		fill_map(map, line_split, y, data->width);
         free_split(line_split);
 		free(line);
         line = get_next_line(fd);
 		y++;
 	}
+	if (line)
+		free(line);
 	return (map);
 }

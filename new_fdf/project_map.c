@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:38:41 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/10 20:05:28 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/19 09:28:28 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_point    **translate_3d_to_origin(t_data *data, t_vue *view)
         while (col < data->width)
         {
             t_view_calculs(&(data->map[row][col]), view);
-            // printf("map view to origin: %f, %f, %f\n", map_mview[row][col].x, map_mview[row][col].y, map_mview[row][col].z);
             col++;
         }
         row++;
@@ -94,7 +93,6 @@ t_point    **iso_project(t_data *data)
         while (col < data->width)
         {
             iso_calculs(&(data->map[row][col]), rad);
-            printf("After iso: (%f, %f)\n", data->map[row][col].res_x, data->map[row][col].res_y);
             col++;
         }
         row++;
