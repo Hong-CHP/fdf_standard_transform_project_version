@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:40:04 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/10 17:47:05 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:15:41 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 void	find_x_max_min_val(t_data *data, t_vue *view)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	double	min;
 	double	max;
 
@@ -42,8 +42,8 @@ void	find_x_max_min_val(t_data *data, t_vue *view)
 
 void	find_y_max_min_val(t_data *data, t_vue *view)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	double	min;
 	double	max;
 
@@ -69,8 +69,8 @@ void	find_y_max_min_val(t_data *data, t_vue *view)
 
 void	find_z_max_min_val(t_data *data, t_vue *view)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	double	min;
 	double	max;
 
@@ -94,13 +94,13 @@ void	find_z_max_min_val(t_data *data, t_vue *view)
 	view->z_min = min;
 }
 
-void    find_max_min_val(t_data *data, t_vue *view)
+void	find_max_min_val(t_data *data, t_vue *view)
 {
 	if (data->height < 2 || data->width < 2 || !data->map)
 		return ;
-    find_x_max_min_val(data, view);
-    find_y_max_min_val(data, view);
-    find_z_max_min_val(data, view);
+	find_x_max_min_val(data, view);
+	find_y_max_min_val(data, view);
+	find_z_max_min_val(data, view);
 }
 
 int	ft_atoi(const char *str)

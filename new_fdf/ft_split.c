@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/29 10:50:50 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/19 11:18:25 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:07:42 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	is_space(char c)
 {
 	if (c == ' ' || (c >= 9 && c <= 13))
-			return (1);
+		return (1);
 	return (0);
 }
 
@@ -24,8 +24,8 @@ int	count_words(char *str)
 {
 	int	space;
 	int	count;
-    int i;
-    
+	int	i;
+
 	i = 0;
 	count = 0;
 	space = 1;

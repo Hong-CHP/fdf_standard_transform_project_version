@@ -6,39 +6,39 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 11:17:02 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/19 11:48:47 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:14:48 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-double  deg_to_rad(void)
+double	deg_to_rad(void)
 {
-    double pi;
-    double degree;
-    double  radian;
+	double	pi;
+	double	degree;
+	double	radian;
 
-    pi = 3.14159265;
-    degree = 30.0;
-    radian = degree * (pi / 180.0);
-    return (radian);
+	pi = 3.14159265;
+	degree = 30.0;
+	radian = degree * (pi / 180.0);
+	return (radian);
 }
 
-void    *ft_memset(void *s, int c, int n)
+void	*ft_memset(void *s, int c, int n)
 {
-    char    *p;
-    int     i;
-    char    ch;
-    
-    p = (char *)s;
-    ch = (char)c;
-    i = 0;
-    while (i < n)
-    {
-        p[i] = ch;
-        i++;
-    }
-    return ((void *)p);
+	char	*p;
+	int		i;
+	char	ch;
+
+	p = (char *)s;
+	ch = (char)c;
+	i = 0;
+	while (i < n)
+	{
+		p[i] = ch;
+		i++;
+	}
+	return ((void *)p);
 }
 
 int	parse_color(char *str)
@@ -46,7 +46,7 @@ int	parse_color(char *str)
 	int	res;
 	int	value;
 	int	i;
-	
+
 	res = 0;
 	i = 0;
 	if (str[i] == '0' && str[i + 1] == 'x')
@@ -60,7 +60,7 @@ int	parse_color(char *str)
 		else if (str[i] >= 'A' && str[i] <= 'F')
 			value = str[i] - 'A' + 10;
 		else
-			break;
+			break ;
 		res = res * 16 + value;
 		i++;
 	}
@@ -69,9 +69,9 @@ int	parse_color(char *str)
 
 void	if_color(t_point *point, char *str)
 {
-	int	i;
+	int		i;
 	char	*s_color;
-	
+
 	if (!str)
 		return ;
 	i = 0;
@@ -81,7 +81,7 @@ void	if_color(t_point *point, char *str)
 		{
 			s_color = &str[i + 1];
 			point->color = parse_color(s_color);
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -90,8 +90,8 @@ void	if_color(t_point *point, char *str)
 int	pre_colored(char *str)
 {
 	int	k;
+
 	k = 0;
-	
 	while (str[k])
 	{
 		if (str[k] == ',')
@@ -104,7 +104,6 @@ int	pre_colored(char *str)
 // void	free_map_view(t_point **map_view, t_data *data)
 // {
 // 	int	i;
-
 // 	i = 0;
 // 	while (i < data->height)
 // 	{
@@ -114,14 +113,12 @@ int	pre_colored(char *str)
 // 	free(map_view);
 // 	map_view = NULL;
 // }
-
 // t_point **allocate_map_view(t_data *data)
 // {
-//     t_point **map_mview;
+//	 t_point **map_mview;
 // //map is malloc need to be free after used
-//     int row;
-    
-//     row = 0;
+//	 int row;
+//	 row = 0;
 //     map_mview = malloc(sizeof(t_point *) * data->height);
 // 	if (!map_mview)
 // 		return (NULL);

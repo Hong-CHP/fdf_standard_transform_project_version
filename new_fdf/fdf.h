@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 15:54:40 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/19 13:23:56 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:19:10 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_point
 	int		screen_x;
 	int		screen_y;
 	double	org_z;
-	int	color;
+	int		color;
 }				t_point;
 
 typedef struct s_vue
@@ -41,7 +41,6 @@ typedef struct s_vue
 	double	y_max;
 	double	z_min;
 	double	z_max;
-	// double radian;
 }				t_vue;
 
 typedef struct s_data
@@ -53,42 +52,42 @@ typedef struct s_data
 	int		bpp;
 	int		line_len;
 	int		endian;
-	t_point **map;
 	int		height;
 	int		width;
+	t_point	**map;
 	t_vue	view;
 }				t_data;
 
 typedef struct s_draw
 {
 	int	err;
-	int dx;
-	int dy;
-	int sx;
-	int sy;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
 }				t_draw;
 
 void	free_map(t_point **map, int height);
-void    free_split(char **str_split);
+void	free_split(char **str_split);
 int		ft_atoi(const char *str);
-double  deg_to_rad(void);
+double	deg_to_rad(void);
 int		ft_min(int a, int b);
 int		ft_abs(int nb);
-int     get_color(t_point *point, t_vue *view);
-void    find_max_min_val(t_data *data, t_vue *view);
+int		get_color(t_point *point, t_vue *view);
+void	find_max_min_val(t_data *data, t_vue *view);
 char	**ft_split(char	const *s);
 int		count_lines(char *file);
-int	pre_colored(char *str);
+int		pre_colored(char *str);
 void	if_color(t_point *point, char *str);
 t_point	**recup_points_data(int fd, t_data *data);
 t_vue	project_map(t_data *data);
-t_point    **translate_3d_to_origin(t_data *data, t_vue *view);
-int	ft_gradient(int s_color, int e_color, double percent);
+t_point	**translate_3d_to_origin(t_data *data, t_vue *view);
+int		ft_gradient(int s_color, int e_color, double percent);
 void	put_pixel(t_data *data, int x, int y, int color);
-void    draw_bgc(t_data *data);
-void    draw_map(t_data *data);
-void    add_event_listener(t_data *img_data);
+void	draw_bgc(t_data *data);
+void	draw_map(t_data *data);
+void	add_event_listener(t_data *img_data);
 void	clean_all(t_data *data);
-void    *ft_memset(void *s, int c, int n);
+void	*ft_memset(void *s, int c, int n);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:33:42 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/19 12:32:40 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:07:02 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	count_lines(char *file)
 	char	*line;
 	int		count;
 	int		fd;
-	
+
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (-1);
@@ -26,12 +26,12 @@ int	count_lines(char *file)
 	line = get_next_line(fd);
 	if (!line)
 		return (-1);
-    while (line)
-    {
+	while (line)
+	{
 		count++;
-        free(line);
-        line = get_next_line(fd);
-    }
+		free(line);
+		line = get_next_line(fd);
+	}
 	close(fd);
 	return (count);
 }
@@ -48,9 +48,9 @@ int	count_cols(char **line_split)
 
 void	fill_map(t_point **map, char **line_split, int y, int width)
 {
-	int i;
-	
-    map[y] = malloc(sizeof(t_point) * width);
+	int	i;
+
+	map[y] = malloc(sizeof(t_point) * width);
 	if (!map[y])
 	{
 		free_map(map, y);
@@ -69,7 +69,6 @@ void	fill_map(t_point **map, char **line_split, int y, int width)
 		if (line_split[i] && pre_colored(line_split[i]))
 			if_color(&map[y][i], line_split[i]);
 		map[y][i].org_z = map[y][i].z;
-		printf("map origin: %f, %f, %f, %d\n", map[y][i].x, map[y][i].y, map[y][i].z, map[y][i].color);
 		i++;
 	}
 }
@@ -102,7 +101,7 @@ int	expected_data_width(int *expected_w, t_data *data, char **line_split)
 t_point	**recup_points_data(int fd, t_data *data)
 {
 	int		y;
-	t_point **map;
+	t_point	**map;
 	char	*line;
 	char	**line_split;
 	int		expected_w;
@@ -118,9 +117,9 @@ t_point	**recup_points_data(int fd, t_data *data)
 		line_split = split_line(line, map, y);
 		data->width = expected_data_width(&expected_w, data, line_split);
 		fill_map(map, line_split, y, data->width);
-        free_split(line_split);
+		free_split(line_split);
 		free(line);
-        line = get_next_line(fd);
+		line = get_next_line(fd);
 		y++;
 	}
 	if (line)

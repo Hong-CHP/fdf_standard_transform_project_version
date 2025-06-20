@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 12:15:09 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/05/29 10:10:12 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/20 17:20:02 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ char	*get_next_line(int fd)
 	char		*rest;
 	char		*temp;
 	static char	*dest;
-	int	buffer_size;
+	int			buffer_size;
 
 	if (fd < 0 || fd >= 1024)
 		return (NULL);
@@ -88,4 +88,3 @@ char	*get_next_line(int fd)
 	dest = rest;
 	return (line);
 }
-

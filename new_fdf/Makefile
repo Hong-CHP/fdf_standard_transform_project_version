@@ -6,15 +6,15 @@
 #    By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/28 14:53:49 by hporta-c          #+#    #+#              #
-#    Updated: 2025/06/19 12:44:00 by hporta-c         ###   ########.fr        #
+#    Updated: 2025/06/20 16:44:40 by hporta-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
+MLX_DIR = minilibx-linux
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -L. -lmlx -lXext -lX11 -lm
-INCLUDES = -I.
+CFLAGS = -Wall -Wextra -Werror -I$(MLX_DIR)
+MLX = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 SRCS = get_next_line.c get_next_line_utils.c ft_split.c main.c \
 		fill_map.c project_map.c draw.c event_litsener.c \
@@ -26,10 +26,10 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJS)
-		$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(NAME) $(LDFLAGS) 
+		$(CC) $(CFLAGS) $(OBJS) $(MLX) -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJS)
