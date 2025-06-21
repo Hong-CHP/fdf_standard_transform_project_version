@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 15:54:57 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/20 17:08:38 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/21 08:54:37 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_display_file_and_draw(char *file, t_data *data)
 		exit(1);
 	}
 	data->img = mlx_new_image(data->mlx, WIN_W, WIN_H);
-	data->add = mlx_get_data_addr(data->img, &data->bpp, &data->line_len, &data->endian);
+	data->add = mlx_get_data_addr(data->img, &data->bp, &data->len, &data->edi);
 	draw_bgc(data);
 	draw_map(data);
 	close(fd);

@@ -6,7 +6,7 @@
 #    By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/28 14:53:49 by hporta-c          #+#    #+#              #
-#    Updated: 2025/06/20 16:44:40 by hporta-c         ###   ########.fr        #
+#    Updated: 2025/06/21 09:17:19 by hporta-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ MLX = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 SRCS = get_next_line.c get_next_line_utils.c ft_split.c main.c \
 		fill_map.c project_map.c draw.c event_litsener.c \
-		colors.c utils.c utils_others.c mlx_utils.c clean_up.c
+		colors.c utils.c utils_others.c mlx_utils.c clean_up.c \
+		fill_utils.c trans_scale.c
 OBJS = $(SRCS:.c=.o)
 
 RM = rm -f

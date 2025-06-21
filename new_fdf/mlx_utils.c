@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:09:22 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/20 17:09:56 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/21 08:54:48 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	put_pixel(t_data *data, int x, int y, int color)
 
 	if (x < 0 || x >= WIN_W || y < 0 || y >= WIN_H)
 		return ;
-	dst = data->add + y * data->line_len + x * (data->bpp / 8);
+	dst = data->add + y * data->len + x * (data->bp / 8);
 	*(unsigned int *)dst = color;
 }
 
@@ -58,7 +58,7 @@ void	draw_bgc(t_data *data)
 	int	x;
 	int	y;
 
-	ft_bzero(data->add, data->height * data->width * (data->bpp / 8));
+	ft_bzero(data->add, data->height * data->width * (data->bp / 8));
 	y = 0;
 	while (y < WIN_H)
 	{

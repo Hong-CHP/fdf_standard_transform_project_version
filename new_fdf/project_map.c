@@ -6,71 +6,11 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 15:38:41 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/20 17:13:17 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/21 09:16:22 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	t_view_calculs(t_point *point, t_vue *view)
-{
-	double	centre_x;
-	double	centre_y;
-	double	centre_z;
-
-	centre_x = (view->x_min + view->x_max) / 2;
-	centre_y = (view->y_min + view->y_max) / 2;
-	centre_z = (view->z_min + view->z_max) / 2;
-	point->x -= centre_x;
-	point->y -= centre_y;
-	point->z -= centre_z;
-}
-
-t_point	**translate_3d_to_origin(t_data *data, t_vue *view)
-{
-	int	row;
-	int	col;
-
-	row = 0;
-	while (row < data->height)
-	{
-		col = 0;
-		while (col < data->width)
-		{
-			t_view_calculs(&(data->map[row][col]), view);
-			col++;
-		}
-		row++;
-	}
-	return (data->map);
-}
-
-t_point	**scale_to_canonical_cube(t_data *data, t_vue *view)
-{
-	int		row;
-	int		col;
-	double	s_x;
-	double	s_y;
-	double	s_z;
-
-	s_x = (view->x_max - view->x_min != 0) ? 2.0 / (view->x_max - view->x_min) : 1.0;
-	s_y = (view->y_max - view->y_min != 0) ? 2.0 / (view->y_max - view->y_min) : 1.0;
-	s_z = (view->z_max - view->z_min != 0) ? 2.0 / (view->z_max - view->z_min) : 1.0;
-	row = 0;
-	while (row < data->height)
-	{
-		col = 0;
-		while (col < data->width)
-		{
-			data->map[row][col].x *= s_x;
-			data->map[row][col].y *= s_y;
-			data->map[row][col].z *= s_z;
-			col++;
-		}
-		row++;
-	}
-	return (data->map);
-}
 
 void	iso_calculs(t_point *point, double rad)
 {
@@ -83,10 +23,9 @@ t_point	**iso_project(t_data *data)
 	int		row;
 	int		col;
 	double	rad;
-	
+
 	row = 0;
 	rad = deg_to_rad();
-	printf("rad: %f\n", rad);
 	while (row < data->height)
 	{
 		col = 0;
@@ -100,10 +39,12 @@ t_point	**iso_project(t_data *data)
 	return (data->map);
 }
 
-t_point	**view_tranform(t_data *data)
+t_point	**view_tranform(t_data *data, t_point **map)
 {
-	int	row;
-	int	col;
+	int		row;
+	int		col;
+	double	screenx;
+	double	screeny;
 
 	row = 0;
 	while (row < data->height)
@@ -111,13 +52,17 @@ t_point	**view_tranform(t_data *data)
 		col = 0;
 		while (col < data->width)
 		{
-			data->map[row][col].screen_x = (int)round((data->map[row][col].res_x + 1) * (WIN_W / 2) * 0.8 + WIN_H * 0.1);
-			data->map[row][col].screen_y = (int)round((data->map[row][col].res_y + 1) * (WIN_H / 2) * 0.8 + WIN_H * 0.1);
+			screenx = (map[row][col].res_x + 1) * (WIN_W / 2) * 0.8;
+			map[row][col].screen_x = (int)round(screenx + WIN_H * 0.1);
+			// map[row][col].screen_x = (int)round((map[row][col].res_x + 1) * (WIN_W / 2) * 0.8 + WIN_H * 0.1);
+			screeny = (map[row][col].res_y + 1) * (WIN_H / 2) * 0.8;
+			map[row][col].screen_y = (int)round(screeny + WIN_H * 0.1);
+			// map[row][col].screen_y = (int)round((map[row][col].res_y + 1) * (WIN_H / 2) * 0.8 + WIN_H * 0.1);
 			col++;
 		}
 		row++;
 	}
-	return (data->map);
+	return (map);
 }
 
 t_vue	project_map(t_data *data)
@@ -128,6 +73,6 @@ t_vue	project_map(t_data *data)
 	translate_3d_to_origin(data, &view);
 	scale_to_canonical_cube(data, &view);
 	iso_project(data);
-	view_tranform(data);
+	view_tranform(data, data->map);
 	return (view);
 }

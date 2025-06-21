@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 15:54:40 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/20 17:19:10 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/21 09:16:57 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ typedef struct s_data
 	void	*win;
 	void	*img;
 	char	*add;
-	int		bpp;
-	int		line_len;
-	int		endian;
+	int		bp;
+	int		len;
+	int		edi;
 	int		height;
 	int		width;
 	t_point	**map;
@@ -75,13 +75,16 @@ int		ft_min(int a, int b);
 int		ft_abs(int nb);
 int		get_color(t_point *point, t_vue *view);
 void	find_max_min_val(t_data *data, t_vue *view);
+int		count_lines(char *file);
+int		count_cols(char **line_split);
 char	**ft_split(char	const *s);
 int		count_lines(char *file);
 int		pre_colored(char *str);
 void	if_color(t_point *point, char *str);
 t_point	**recup_points_data(int fd, t_data *data);
-t_vue	project_map(t_data *data);
 t_point	**translate_3d_to_origin(t_data *data, t_vue *view);
+t_point	**scale_to_canonical_cube(t_data *data, t_vue *view);
+t_vue	project_map(t_data *data);
 int		ft_gradient(int s_color, int e_color, double percent);
 void	put_pixel(t_data *data, int x, int y, int color);
 void	draw_bgc(t_data *data);

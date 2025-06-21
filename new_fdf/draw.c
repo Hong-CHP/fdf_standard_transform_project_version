@@ -6,7 +6,7 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:10:29 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/20 17:04:11 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/21 08:45:44 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,49 @@ int	gradient_color(int dst, int i, t_point s, t_point e)
 	double	percent;
 	int		color;
 
-	percent = (dst == 0.0) ? 0.0 : (double)i / (double)dst;
+	if (dst == 0.0)
+		percent = 0.0;
+	else
+		percent = (double)i / (double)dst;
 	color = ft_gradient(s.color, e.color, percent);
 	return (color);
 }
 
+t_draw	*init_t_draw_val(t_draw *d_line, t_point s, t_point e)
+{
+	d_line->dx = ft_abs(e.screen_x - s.screen_x);
+	d_line->dy = ft_abs(e.screen_y - s.screen_y);
+	if (e.screen_x - s.screen_x > 0 )
+		d_line->sx = 1;
+	else
+		d_line->sx = -1;
+	if (e.screen_y - s.screen_y > 0 )
+		d_line->sy = 1;
+	else
+		d_line->sy = -1;
+	d_line->err = 0;
+	return (d_line);
+}
+
 void	high_slope(t_data *data, t_point s, t_point e)
 {
-	t_draw	d_line;
+	t_draw	y_line;
 	int		i;
 	int		color;
 
-	d_line.dx = ft_abs(e.screen_x - s.screen_x);
-	d_line.dy = ft_abs(e.screen_y - s.screen_y);
-	d_line.sx = (e.screen_x - s.screen_x > 0 ) ? 1 : -1;
-	d_line.sy = (e.screen_y - s.screen_y > 0 ) ? 1 : -1;
-	d_line.err = 0;
+	init_t_draw_val(&y_line, s, e);
 	i = 0;
 	while (s.screen_y != e.screen_y)
 	{
-		color = gradient_color(d_line.dy, i, s, e);
+		color = gradient_color(y_line.dy, i, s, e);
 		put_pixel(data, s.screen_x, s.screen_y, color);
-		d_line.err += d_line.dx;
-		if (2 * d_line.err >= d_line.dy)
+		y_line.err += y_line.dx;
+		if (2 * y_line.err >= y_line.dy)
 		{
-			s.screen_x += d_line.sx;
-			d_line.err -= d_line.dy;
+			s.screen_x += y_line.sx;
+			y_line.err -= y_line.dy;
 		}
-		s.screen_y += d_line.sy;
+		s.screen_y += y_line.sy;
 		i++;
 	}
 	put_pixel(data, s.screen_x, s.screen_y, e.color);
@@ -54,26 +69,22 @@ void	high_slope(t_data *data, t_point s, t_point e)
 void	low_slope(t_data *data, t_point s, t_point e)
 {
 	int		i;
-	t_draw	d_line;
+	t_draw	x_line;
 	int		color;
 
-	d_line.dx = ft_abs(e.screen_x - s.screen_x);
-	d_line.dy = ft_abs(e.screen_y - s.screen_y);
-	d_line.sx = (e.screen_x - s.screen_x > 0 ) ? 1 : -1;
-	d_line.sy = (e.screen_y - s.screen_y > 0 ) ? 1 : -1;
-	d_line.err = 0;
+	init_t_draw_val(&x_line, s, e);
 	i = 0;
 	while (s.screen_x != e.screen_x)
 	{
-		color = gradient_color(d_line.dx, i, s, e);
+		color = gradient_color(x_line.dx, i, s, e);
 		put_pixel(data, s.screen_x, s.screen_y, color);
-		d_line.err += d_line.dy;
-		if (2 * d_line.err >= d_line.dx)
+		x_line.err += x_line.dy;
+		if (2 * x_line.err >= x_line.dx)
 		{
-			s.screen_y += d_line.sy;
-			d_line.err -= d_line.dx;
+			s.screen_y += x_line.sy;
+			x_line.err -= x_line.dx;
 		}
-		s.screen_x += d_line.sx;
+		s.screen_x += x_line.sx;
 		i++;
 	}
 	put_pixel(data, s.screen_x, s.screen_y, e.color);
