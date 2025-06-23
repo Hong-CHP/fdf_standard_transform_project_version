@@ -6,35 +6,22 @@
 /*   By: hporta-c <hporta-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/10 13:10:29 by hporta-c          #+#    #+#             */
-/*   Updated: 2025/06/21 08:45:44 by hporta-c         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:44:34 by hporta-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx.h"
 #include "fdf.h"
 
-int	gradient_color(int dst, int i, t_point s, t_point e)
-{
-	double	percent;
-	int		color;
-
-	if (dst == 0.0)
-		percent = 0.0;
-	else
-		percent = (double)i / (double)dst;
-	color = ft_gradient(s.color, e.color, percent);
-	return (color);
-}
-
 t_draw	*init_t_draw_val(t_draw *d_line, t_point s, t_point e)
 {
 	d_line->dx = ft_abs(e.screen_x - s.screen_x);
 	d_line->dy = ft_abs(e.screen_y - s.screen_y);
-	if (e.screen_x - s.screen_x > 0 )
+	if (e.screen_x - s.screen_x > 0)
 		d_line->sx = 1;
 	else
 		d_line->sx = -1;
-	if (e.screen_y - s.screen_y > 0 )
+	if (e.screen_y - s.screen_y > 0)
 		d_line->sy = 1;
 	else
 		d_line->sy = -1;
